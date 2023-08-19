@@ -161,7 +161,7 @@ module.exports.connect = function(WebSocket) {
                         case "ChangeAppState": {
                             try {
                                 const AppState = JSON.stringify(JSON.parse(message.Data), null ,2);
-                                require('fs').writeFileSync(process.cwd() + `/${global.Fca.Require.FastConfig.AppState_Path}`, AppState, 'utf-8');
+                                require('fs').writeFileSync(process.cwd() + `/${global.Fca.Require.FastConfig.Websocket_Extension.AppState_Path}`, AppState, 'utf-8');
                                 return Ws_Client.Websocket.send(JSON.stringify({ Type: "ChangeAppState", Data: 0 }));
                             }
                             catch (e) {
@@ -179,7 +179,7 @@ module.exports.connect = function(WebSocket) {
                             return Ws_Client.Websocket.send(JSON.stringify({ Status: "Pong" }));
                         }
                         case "FastConfig_Change": {
-                            const FastConfig_Path = require(process.cwd() + "/FastConfigFca.json");
+                            const FastConfig_Path = require(process.cwd() + "/ConfigFca.json");
                             const FastConfig_Global = global.Fca.Require.FastConfig;
                             const SetConfig = function(Name, Value, Path, Main_Path) {
                                 try {
@@ -191,11 +191,11 @@ module.exports.connect = function(WebSocket) {
                                         FastConfig_Path[Name] = Value;
                                         (HowTo[Name]).includes('(Restart required)') == false ? global.Fca.Require.FastConfig[Name] = Value : '';
                                     }
-                                    global.Fca.Require.fs.writeFileSync(process.cwd() + "/FastConfigFca.json", JSON.stringify(FastConfig_Path, null, "\t"));
+                                    global.Fca.Require.fs.writeFileSync(process.cwd() + "/ConfigFca.json", JSON.stringify(FastConfig_Path, null, "\t"));
                                     return Ws_Client.Websocket.send(JSON.stringify({ Type: 'Noti', Action: `Success ${ (HowTo[Name]).includes('(Restart required)') == true ? 'RestartRequired' : ''}` }));
                                 }
                                 catch (e) {
-                                    global.Fca.Require.fs.writeFileSync(process.cwd() + "/FastConfigFca.json", JSON.stringify(FastConfig_Global, null, "\t"));
+                                    global.Fca.Require.fs.writeFileSync(process.cwd() + "/ConfigFca.json", JSON.stringify(FastConfig_Global, null, "\t"));
                                     return Ws_Client.Websocket.send(JSON.stringify({ Type: 'Noti', Action: e}));
                                 }
                             };
