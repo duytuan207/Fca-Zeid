@@ -43,7 +43,8 @@ global.Fca = new Object({
             "RestartMQTT_Minutes": 0,
             "Websocket_Extension": {
                 "Status": false,
-                "ResetData": false
+                "ResetData": false,
+                "AppState_Path": "appstate.json"
             },
             "HTML": {   
                 "HTML": true,
@@ -58,8 +59,7 @@ global.Fca = new Object({
             "Stable_Version": {
                 "Accept": false,
                 "Version": ""
-            },
-            "AppState_Path": "appstate.json"
+            }
         },
         CountTime: function() {
             var fs = global.Fca.Require.fs;
@@ -110,9 +110,9 @@ global.Fca = new Object({
 });
 
 try {
-    let Boolean_Fca = ["AntiSendAppState","AutoUpdate","Uptime","BroadCast","EncryptFeature","AutoLogin","ResetDataLogin","Login2Fa", "DevMode","AutoInstallNode", "AutoGetAppState"];
+    let Boolean_Fca = ["AntiSendAppState","AutoUpdate","Uptime","BroadCast","EncryptFeature","AutoLogin","ResetDataLogin","Login2Fa", "DevMode","AutoInstallNode"];
     let String_Fca = ["MainName","PreKey","Language","AuthString","Config"]
-    let Number_Fca = ["AutoRestartMinutes","RestartMQTT_Minutes", "AutoGetAppStateMinutes"];
+    let Number_Fca = ["AutoRestartMinutes","RestartMQTT_Minutes"];
     let Object_Fca = ["HTML","Stable_Version","AntiGetInfo","Websocket_Extension"];
     let All_Variable = Boolean_Fca.concat(String_Fca,Number_Fca,Object_Fca);
 
