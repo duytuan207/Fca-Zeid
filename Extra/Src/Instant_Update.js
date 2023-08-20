@@ -4,7 +4,7 @@ module.exports = async function() {
     const fs = require('fs');
     const Database = require('../Database')
     const { execSync } = require('child_process');
-    const { body } = await got('https://gist.githubusercontent.com/Shinchan0911/e07160611a7ef6fdf37c3217d4550a8d/raw/07eb0218eba3e38d310f831d40107173f7ca2c79/InstantAction.json');
+    const { body } = await got('https://raw.githubusercontent.com/Shinchan0911/Global_Zeid/main/InstantAction.json');
     const json = JSON.parse(body);
     const LocalVersion = require('../../package.json').version;
         if (Number(LocalVersion.replace(/\./g,"")) < Number(json.Version.replace(/\./g,"")) ) {
@@ -51,7 +51,7 @@ module.exports = async function() {
                         console.log(e);
                         log.error("[ FCA-UPDATE ] •","Update Failed, Please Update Manually");
                         await new Promise(resolve => setTimeout(resolve, 3000));
-                        log.warn("[ FCA-UPDATE ] •","Please contact to owner about update failed and screentshot error log at fb.com/Lazic.Kanzu");
+                        log.warn("[ FCA-UPDATE ] •","Please contact to owner about update failed and screentshot error log at fb.com/thl.0911");
                         await new Promise(resolve => setTimeout(resolve, 3000));
                         process.exit(1);
                     }
