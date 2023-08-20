@@ -1,6 +1,6 @@
 {
   "_from": "fca-zeid",
-  "_id": "fca-zeid@1.5.5",
+  "_id": "fca-zeid@1.6.1",
   "_inBundle": false,
   "_integrity": "sha512-l43kN/J5GH/8/oM6dQ8oNcg/l9S7fNodu2b9o/hQw3FlwarUU2Jo6v8q5kehuWgPoA4Jj1B5rtGzXuRV1uQasg==",
   "_location": "/fca-zeid",
@@ -223,5 +223,5 @@
     "prettier": "prettier utils.js src/* --write",
     "test": "mocha"
   },
-  "version": "1.5.8"
+  "version": "1.6.1"
 }

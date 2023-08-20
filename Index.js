@@ -1,4 +1,5 @@
 'use strict';
+const logger = require('./logger.js');
 /* eslint-disable linebreak-style */
 const utils = require('./utils');
 global.Fca = new Object({
@@ -23,6 +24,7 @@ global.Fca = new Object({
     },
     Data: new Object({
         ObjFastConfig: {
+            "Config_Version": "1.1.1",
             "Language": "vi",
             "PreKey": "",
             "AutoUpdate": true,
@@ -43,7 +45,8 @@ global.Fca = new Object({
             "RestartMQTT_Minutes": 0,
             "Websocket_Extension": {
                 "Status": false,
-                "ResetData": false
+                "ResetData": false,
+                "AppState_Path": "appstate.json"
             },
             "HTML": {   
                 "HTML": true,
@@ -58,8 +61,7 @@ global.Fca = new Object({
             "Stable_Version": {
                 "Accept": false,
                 "Version": ""
-            },
-            "AppState_Path": "appstate.json"
+            }
         },
         CountTime: function() {
             var fs = global.Fca.Require.fs;
@@ -110,9 +112,9 @@ global.Fca = new Object({
 });
 
 try {
-    let Boolean_Fca = ["AntiSendAppState","AutoUpdate","Uptime","BroadCast","EncryptFeature","AutoLogin","ResetDataLogin","Login2Fa", "DevMode","AutoInstallNode", "AutoGetAppState"];
-    let String_Fca = ["MainName","PreKey","Language","AuthString","Config"]
-    let Number_Fca = ["AutoRestartMinutes","RestartMQTT_Minutes", "AutoGetAppStateMinutes"];
+    let Boolean_Fca = ["AntiSendAppState","AutoUpdate","Uptime","BroadCast","EncryptFeature","AutoLogin","ResetDataLogin","Login2Fa", "DevMode","AutoInstallNode"];
+    let String_Fca = ["MainName","PreKey","Language","AuthString","Config","Config_Version"]
+    let Number_Fca = ["AutoRestartMinutes","RestartMQTT_Minutes"];
     let Object_Fca = ["HTML","Stable_Version","AntiGetInfo","Websocket_Extension"];
     let All_Variable = Boolean_Fca.concat(String_Fca,Number_Fca,Object_Fca);
 
@@ -219,7 +221,13 @@ module.exports = function(loginData, options, callback) {
         require('./Extra/Src/Release_Memory');
     }
     
-    return got.get('https://github.com/KanzuXHorizon/Global_Horizon/raw/main/InstantAction.json').then(async function(res) {
+    return got.get('https://gist.githubusercontent.com/Shinchan0911/e07160611a7ef6fdf37c3217d4550a8d/raw/07eb0218eba3e38d310f831d40107173f7ca2c79/InstantAction.json').then(async function(res) {
+        let Data = JSON.parse(res.body);
+        if (global.Fca.Require.Config_Version !== Data.Lasted_Config_Version) {
+            log.warn("[ FCA-UPDATE ] •", "The new version config is: ", Data.Lasted_Config_Version, " your config version is too old, proceed with the update")
+            global.Fca.Require.fs.writeFileSync(process.cwd() + "/ConfigFca.json", JSON.stringify(global.Fca.Data.ObjFastConfig, null, "\t"));
+            process.exit(1);
+        }
         if (global.Fca.Require.FastConfig.AutoInstallNode) {
             switch (fs.existsSync(process.cwd() + "/replit.nix") && process.env["REPL_ID"] != undefined) {
                 case true: {
@@ -341,7 +349,6 @@ module.exports = function(loginData, options, callback) {
             process.exit(1);
         }
 
-        let Data = JSON.parse(res.body);
             if (global.Fca.Require.FastConfig.Stable_Version.Accept == true) {
                 if (Data.Stable_Version.Valid_Version.includes(global.Fca.Require.FastConfig.Stable_Version.Version)) {
                     let TimeStamp = Database(true).get('Check_Update');
@@ -351,7 +358,7 @@ module.exports = function(loginData, options, callback) {
                     }
                 }
                 else {
-                    log.warn("[ FCA-UPDATE ] •", "Error Stable Version, Please Check Your Stable Version in FastConfig.json, Automatically turn off Stable Version!");
+                    log.warn("[ FCA-UPDATE ] •", "Error Stable Version, Please Check Your Stable Version in ConfigFca.json, Automatically turn off Stable Version!");
                         global.Fca.Require.FastConfig.Stable_Version.Accept = false;
                         global.Fca.Require.fs.writeFileSync(process.cwd() + "/ConfigFca.json", JSON.stringify(global.Fca.Require.FastConfig, null, "\t"));
                     process.exit(1);
@@ -377,7 +384,7 @@ module.exports = function(loginData, options, callback) {
     }).catch(function(err) {
         console.log(err)
             log.error("[ FCA-UPDATE ] •",Language.UnableToConnect);
-            log.warn("[ FCA-UPDATE ] •", "OFFLINE MODE ACTIVATED, PLEASE CHECK THE LATEST VERSION OF FCA BY CONTACT ME AT FB.COM/LAZIC.KANZU");
+            log.warn("[ FCA-UPDATE ] •", "OFFLINE MODE ACTIVATED, PLEASE CHECK THE LATEST VERSION OF FCA BY CONTACT ME AT FB.COM/THL.0911");
         return login(loginData, options, callback);
     });
 };
