@@ -223,5 +223,9 @@
     "prettier": "prettier utils.js src/* --write",
     "test": "mocha"
   },
+<<<<<<< HEAD
   "version": "1.6.1"
+=======
+  "version": "1.6.0"
+>>>>>>> a8295fc70ef8e499750de859432b9fc5919c3f84
 }

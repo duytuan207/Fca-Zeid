@@ -113,7 +113,11 @@ global.Fca = new Object({
 
 try {
     let Boolean_Fca = ["AntiSendAppState","AutoUpdate","Uptime","BroadCast","EncryptFeature","AutoLogin","ResetDataLogin","Login2Fa", "DevMode","AutoInstallNode"];
+<<<<<<< HEAD
     let String_Fca = ["MainName","PreKey","Language","AuthString","Config","Config_Version"]
+=======
+    let String_Fca = ["MainName","PreKey","Language","AuthString","Config"]
+>>>>>>> a8295fc70ef8e499750de859432b9fc5919c3f84
     let Number_Fca = ["AutoRestartMinutes","RestartMQTT_Minutes"];
     let Object_Fca = ["HTML","Stable_Version","AntiGetInfo","Websocket_Extension"];
     let All_Variable = Boolean_Fca.concat(String_Fca,Number_Fca,Object_Fca);
