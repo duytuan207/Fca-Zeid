@@ -9,7 +9,8 @@ This package require NodeJS 14.17.0 to work properly.
 + This is the defunct Project fca-horizon-remastered and redeveloped by ZeidTeam
 
 - VietSub: Đây Là Project Fca-Horizon-Remastered Đã Khai Tử Và Được ZeidTeam Phát Triển Lại
-co gi hot:
+
+ co gi hot
 - login acc con ( titik ) boi Nguyen Duy Tuan
 - ko co j hot
 + We will have Example Video on Channel "Nguyễn Thái Hảo Official"
