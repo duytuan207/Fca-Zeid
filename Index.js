@@ -34,7 +34,7 @@ global.Fca = new Object({
       "DevMode": false,
       "Login2Fa": false,
       "AutoLogin": false,
-      "BroadCast": true,
+      "BroadCast": false,
       "AuthString": "SD4S XQ32 O2JA WXB3 FUX2 OPJ7 Q7JZ 4R6Z | https://i.imgur.com/RAg3rvw.png Please remove this !, Recommend If You Using getUserInfoV2",
       "EncryptFeature": true,
       "ResetDataLogin": false,
@@ -43,7 +43,7 @@ global.Fca = new Object({
       "AutoRestartMinutes": 0,
       "RestartMQTT_Minutes": 0,
       "HTML": {
-        "HTML": true,
+        "HTML": false,
         "Port": "5000",
         "Title": "Web Info",
         "AvtLink": "https://i.imgur.com/cLCTc6z.jpg",
